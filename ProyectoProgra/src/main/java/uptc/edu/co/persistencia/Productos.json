@@ -1,0 +1,44 @@
+[
+  {
+    "nombre": "Oreo",
+    "numeroCompras": 400,
+    "descripcion": "Galletas de chocolate",
+    "categoria": ["Dulces", "Galletas"]
+  },
+  {
+    "nombre": "Glasitas",
+    "numeroCompras": 350,
+    "descripcion": "Galletas de marca Glasitas",
+    "categoria": ["Dulces", "Galletas"]
+  },
+  {
+    "nombre": "Cocacola",
+    "numeroCompras": 900,
+    "descripcion": "Gaseosa cocacola",
+    "categoria": ["Bebida", "Gaseosa"]
+  },
+  {
+    "nombre": "Pepsi",
+    "numeroCompras": 800,
+    "descripcion": "Copia de cocacola",
+    "categoria": ["Bebida", "Gaseosa"]
+  },
+  {
+    "nombre": "Nevera",
+    "numeroCompras": 1200,
+    "descripcion": "Nevera para la casa",
+    "categoria": ["Electrodomestico", "Hogar"]
+  },
+  {
+    "nombre": "Milo",
+    "numeroCompras": 400,
+    "descripcion": "Galletas todas feas de milo",
+    "categoria": ["Dulces", "Galletas"]
+  },
+  {
+    "nombre": "Gomas",
+    "numeroCompras": 400,
+    "descripcion": "Gomitas en forma de osos",
+    "categoria": ["Dulces"]
+  }
+]

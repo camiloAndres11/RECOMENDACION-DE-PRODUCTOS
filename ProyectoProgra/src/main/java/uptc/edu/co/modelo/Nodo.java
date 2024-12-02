@@ -1,4 +1,4 @@
-package org.example.modelo;
+package uptc.edu.co.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class Nodo{
         this.nombre = nombre;
         this.numeroCompras = numeroCompras;
         this.descripcion = descripcion;
-        this.categoria = new ArrayList<>();
+        this.categoria = categoria != null ? categoria : new ArrayList<>(); // Aseguramos que la lista no sea null
         this.adyacencias = new ArrayList<>();
     }
 
@@ -25,7 +25,7 @@ public class Nodo{
         return descripcion;
     }
 
-    public List<String> getCategoria(){
+    public List<String> getCategorias(){
         return categoria;
     }
 
