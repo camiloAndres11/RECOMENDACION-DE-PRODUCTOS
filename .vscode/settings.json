@@ -1,0 +1,8 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.project.referencedLibraries": [
+        "C:/Program Files/Javafx/javafx-sdk-23.0.1/lib/*.jar"
+    ],
+    "maven.executable.path": "C:\\Program Files\\Apache\\maven\\bin\\mvn",
+    "java.errors.incompleteClasspath.severity": "warning"
+}
