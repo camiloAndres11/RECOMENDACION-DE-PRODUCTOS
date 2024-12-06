@@ -1,0 +1,117 @@
+/* Estilo general para la ventana */
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #2892bf;
+}
+
+
+
+/*  para la barra superior azul */
+#barraSuperior {
+    -fx-background-color: #2892bf;
+    -fx-padding: 10px;
+    -fx-spacing: 10px; /* Espaciado entre los elementos */
+}
+
+/* Estilo del título */
+#titulo {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-family: "Comic Sans MS";
+    -fx-padding: 10px 20px 20px 0; /* Margen superior, derecho, inferior, izquierdo */
+}
+
+/* Estilo del espacio de búsqueda */
+#campoBusqueda {
+    -fx-font-size: 12px;
+    -fx-padding: 10px;
+    -fx-background-color: white;
+    -fx-border-color: #0073e6;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-pref-width: 400px;
+}
+
+/* Estilo del botón */
+#botonBuscar {
+    -fx-font-size: 12px;
+    -fx-background-color: #4f0873;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+}
+
+#botonBuscar:hover {
+    -fx-background-color: #20042e; /* mas oscuro al pasar el mouse */
+}
+
+/* Estilo para el FlowPane que contiene los productos */
+#areaRecomendaciones {
+    -fx-vgap: 10px;  /* Espacio vertical entre las filas de productos */
+    -fx-hgap: 10px;  /* Espacio horizontal entre los productos */
+    -fx-padding: 20px;  /* Padding alrededor del FlowPane */
+    -fx-background-color: linear-gradient(to bottom, #dbeafe, #eff6ff); /* Azul super clarito */
+}
+
+/* Estilo para los productos (cajas de productos) */
+.producto-card {
+    -fx-background-color: white;
+    -fx-padding: 10px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-min-width: 150px; /* Tamaño mínimo de cada cuadro */
+    -fx-min-height: 150px; /* Tamaño mínimo de cada cuadro */
+    -fx-alignment: center; /* Centra el texto dentro de las "cards" */
+}
+
+.producto-card: hover {
+    -fx-background-color:  #D3D3D3; /* mas oscuro al pasar el mouse */
+}
+
+#nombreProducto {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+#precioProducto {
+    -fx-font-size: 14px;
+    -fx-text-fill: gray;
+}
+
+#descripcionProducto {
+    -fx-font-size: 12px;
+    -fx-text-fill: gray;
+}
+
+#botonComprar {
+    -fx-font-size: 12px;
+    -fx-background-color: #1dc458;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-font-weight: bold;
+}
+
+#layoutEstilo{
+    -fx-padding: 20px;
+    -fx-alignment: center;
+}
+
+#botonVolver {
+    -fx-font-size: 12px;
+    -fx-background-color: #2892bf;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-font-weight: bold;
+}
+
+.window-background {
+    -fx-background-color: linear-gradient(to bottom, #dbeafe, #eff6ff); /* Azul super clarito */
+    -fx-background-size: cover;
+}
+
+
+

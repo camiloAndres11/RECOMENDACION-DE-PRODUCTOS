@@ -1,0 +1,14 @@
+{
+    "nodos": [
+      {"nombre": "Trululu", "numeroCompras": 50, "categoria": ["Dulces", "Gomas", "Alimentos"], "id": 2, "precio":298},
+      {"nombre": "Chocolate", "numeroCompras": 70, "categoria": ["Dulces", "Snacks","Alimentos"], "id": 3, "precio":298},
+      {"nombre": "Chips", "numeroCompras": 30, "categoria": ["Snacks","Alimentos"], "id": 4, "precio":298},
+      {"nombre": "Durazno", "numeroCompras": 40, "categoria": ["Fruta","Alimentos"], "id": 5, "precio":298},
+      {"nombre": "Banano", "numeroCompras": 90, "categoria": ["Fruta","Alimentos"], "id": 6, "precio":298},
+      {"nombre": "Cocacola", "numeroCompras": 80, "categoria": ["Snacks","Alimentos"], "id": 7, "precio":298},
+      {"nombre": "Zapatos", "numeroCompras": 90, "categoria": ["Ropa"], "id": 6, "precio":298},
+      {"nombre": "Vestido rojo", "numeroCompras": 80, "categoria": ["Ropa"], "id": 7, "precio":298},
+      {"nombre": "Televisor", "numeroCompras": 90, "categoria": ["Electrodomestico"], "id": 6, "precio":298},
+      {"nombre": "Lavadora", "numeroCompras": 80, "categoria": ["Electrodomestico"], "id": 7, "precio":298}
+    ]
+  }

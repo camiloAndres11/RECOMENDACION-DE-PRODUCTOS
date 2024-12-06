@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "uptc.edu.co.vista.Main",
+            "projectName": "ProyectoProgra",
+            "vmArgs": "--module-path \"C:/Program Files/Javafx/javafx-sdk-23.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "uptc.edu.co.App",
+            "projectName": "ProyectoProgra"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "name": "Java Console App",
+            "type": "java",
+            "request": "launch",
+            "mainClass": "${fileBasenameNoExtension}",
+            "vmArgs": ""
+        }
+    ]
+}
