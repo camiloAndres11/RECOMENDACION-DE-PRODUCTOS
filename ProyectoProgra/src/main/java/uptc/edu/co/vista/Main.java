@@ -21,6 +21,7 @@ import uptc.edu.co.modelo.Nodo;
 public class Main extends Application {
     private Stage primaryStage;
 
+
     ControladorVista controladorVista = new ControladorVista();
 
     public static void main(String[] args) {
@@ -76,21 +77,21 @@ public class Main extends Application {
         buscarButton.setOnAction(e -> {
             String busqueda = campoBusqueda.getText().toLowerCase();
             String categoriaSeleccionada = comboCategoria.getValue();
-        
+
             // Filtrar productos por búsqueda y categoría
             List<Nodo> productosFiltrados = new ArrayList<>();
-            
+
             // Recorrer la lista de productos (supongamos que la lista se llama 'productos')
             for (Nodo nodo : productos) {
-                boolean perteneceACategoria = categoriaSeleccionada.equals("Todo") || 
-                                              nodo.getCategorias().contains(categoriaSeleccionada);
-        
+                boolean perteneceACategoria = categoriaSeleccionada.equals("Todo") ||
+                        nodo.getCategorias().contains(categoriaSeleccionada);
+
                 // Filtrar por búsqueda en el nombre y la categoría
                 if (perteneceACategoria && nodo.getNombre().toLowerCase().contains(busqueda)) {
                     productosFiltrados.add(nodo);
                 }
             }
-        
+
             // Actualizar área de productos
             areaRecomendaciones.getChildren().clear();
             if (productosFiltrados.isEmpty()) {
@@ -98,16 +99,16 @@ public class Main extends Application {
             } else {
                 for (Nodo nodo : productosFiltrados) {
                     Label productoCard = new Label(nodo.getNombre()); // Muestra el nombre del producto
-        
+
                     productoCard.getStyleClass().add("producto-card"); // Para el estilo
-        
+
                     // Agregar evento al hacer click en el card
                     productoCard.setOnMouseClicked(event -> {
                         DetallesDeProducto ventanaDetalles = new DetallesDeProducto();
                         primaryStage.hide(); // Ocultar la ventana principal
                         ventanaDetalles.show(nodo.getNombre(), String.format("$%.2f", nodo.getPrecio()), nodo.getDescripcion(), primaryStage);
                     });
-        
+
                     areaRecomendaciones.getChildren().add(productoCard);
                 }
             }
@@ -136,39 +137,40 @@ public class Main extends Application {
 
     // Método para actualizar recomendaciones
     private void actualizarRecomendaciones(FlowPane areaRecomendaciones, String categoriaSeleccionada,
-                                          List<Nodo> productos) {
+                                           List<Nodo> productos) {
         areaRecomendaciones.getChildren().clear();
 
         List<Nodo> productosRecomendados = new ArrayList<>();
-       
- // Filtrar productos por categoría
- for (Nodo nodo : productos) {
-    if (categoriaSeleccionada.equals("Todo") || nodo.getCategoria().equals(categoriaSeleccionada)) {
-        productosRecomendados.add(nodo);
-    }
-}
+
+        // Filtrar productos por categoría
+        for (Nodo nodo : productos) {
+            if (categoriaSeleccionada.equals("Todo") || nodo.getCategoria().equals(categoriaSeleccionada)) {
+                productosRecomendados.add(nodo);
+            }
+        }
 
 // Si no se encontraron productos
-if (productosRecomendados.isEmpty()) {
-    areaRecomendaciones.getChildren().add(new Label("No se encontraron productos."));
-} else {
-    // Mostrar los productos recomendados
-    for (Nodo producto : productosRecomendados) {
-        // Crear un Label para mostrar el nombre del producto
-        Label productoCard = new Label(producto.getNombre() + " - " + producto.getPrecio());
-        productoCard.getStyleClass().add("producto-card");  // Para el CSS
+        if (productosRecomendados.isEmpty()) {
+            areaRecomendaciones.getChildren().add(new Label("No se encontraron productos."));
+        } else {
+            // Mostrar los productos recomendados
+            for (Nodo producto : productosRecomendados) {
+                // Crear un Label para mostrar el nombre del producto
+                Label productoCard = new Label(producto.getNombre() + " - " + producto.getPrecio());
+                productoCard.getStyleClass().add("producto-card");  // Para el CSS
 
-        // Agregar evento al hacer click en el card
-        productoCard.setOnMouseClicked(e -> {
-            DetallesDeProducto ventanaDetalles = new DetallesDeProducto();
-            primaryStage.hide(); // Ocultar la ventana principal
-            String precio = String.valueOf(producto.getPrecio());
-            ventanaDetalles.show(producto.getNombre(), precio, 
-                                 "Descripción del producto " + producto.getNombre(), primaryStage);
-        });
+                // Agregar evento al hacer click en el card
+                productoCard.setOnMouseClicked(e -> {
+                    DetallesDeProducto ventanaDetalles = new DetallesDeProducto();
+                    primaryStage.hide(); // Ocultar la ventana principal
+                    String precio = String.valueOf(producto.getPrecio());
+                    ventanaDetalles.show(producto.getNombre(), precio,
+                            "Descripción del producto " + producto.getNombre(), primaryStage);
+                });
 
-        // Agregar el card al área de recomendaciones
-        areaRecomendaciones.getChildren().add(productoCard);
-    }
+                // Agregar el card al área de recomendaciones
+                areaRecomendaciones.getChildren().add(productoCard);
+            }
+        }
     }
 }

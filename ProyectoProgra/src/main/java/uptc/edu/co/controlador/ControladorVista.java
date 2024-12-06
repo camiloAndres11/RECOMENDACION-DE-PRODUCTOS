@@ -9,7 +9,7 @@ import uptc.edu.co.persistencia.Persistencia;
 
 public class ControladorVista {
 
-    private static final String FILE_PATH = "ProyectoProgra\\src\\main\\java\\uptc\\edu\\co\\persistencia\\Productos.json";
+    private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos.json";
 
     Grafo grafo = new Grafo();
 
@@ -17,6 +17,7 @@ public class ControladorVista {
         List<Nodo> nodos = new ArrayList<>();
         try{
         nodos = Persistencia.cargarNodos(FILE_PATH);
+
          // Construir el grafo a partir de los nodos
         grafo.construirGrafo(nodos);
         } catch (IOException e) {
