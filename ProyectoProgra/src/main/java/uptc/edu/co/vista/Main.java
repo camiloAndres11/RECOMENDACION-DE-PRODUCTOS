@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static final String FILE_PATH = "C:\\Users\\camil\\IdeaProjects\\ProyectoGrafosProgra3\\ProyectoProgra\\src\\main\\java\\uptc\\edu\\co\\persistencia\\Productos.json";
+    private static final String FILE_PATH = "ProyectoProgra/src/main/java/uptc/edu/co/persistencia/Productos.json";
 
     public static void main(String[] args) {
         // Crear el objeto Grafo
