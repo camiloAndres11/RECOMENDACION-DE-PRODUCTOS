@@ -106,7 +106,7 @@ public class Main extends Application {
                     productoCard.setOnMouseClicked(event -> {
                         DetallesDeProducto ventanaDetalles = new DetallesDeProducto();
                         primaryStage.hide(); // Ocultar la ventana principal
-                        ventanaDetalles.show(nodo.getNombre(), String.format("$%.2f", nodo.getPrecio()), nodo.getDescripcion(), primaryStage);
+                        ventanaDetalles.show(nodo.getNombre(), String.format("$%.2f", nodo.getPrecio()), nodo.getDescripcion(), primaryStage,controladorVista);
                     });
 
                     areaRecomendaciones.getChildren().add(productoCard);
@@ -165,7 +165,7 @@ public class Main extends Application {
                     primaryStage.hide(); // Ocultar la ventana principal
                     String precio = String.valueOf(producto.getPrecio());
                     ventanaDetalles.show(producto.getNombre(), precio,
-                            "Descripción del producto " + producto.getNombre(), primaryStage);
+                            "Descripción del producto " + producto.getNombre(), primaryStage, controladorVista);
                 });
 
                 // Agregar el card al área de recomendaciones

@@ -77,7 +77,4 @@ public class Nodo{
     public double getPrecio() {
         return precio;
     }
-
-    
-
 }
