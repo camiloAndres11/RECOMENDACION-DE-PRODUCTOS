@@ -27,6 +27,9 @@ public class Main extends Application {
     Grafo miGrafo = new Grafo();
 
 
+    // Suponiendo que el filepath es el siguiente
+    private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos10k.json";
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -55,10 +58,21 @@ public class Main extends Application {
         Button buscarButton = new Button("Buscar");
         buscarButton.setId("botonBuscar");
 
+        // Crear un botón para agregar producto
+        Button agregarProductoButton = new Button("Agregar Producto");
+        agregarProductoButton.setId("agregarProductoButton");
+
+        // Configurar el botón de agregar producto para abrir la ventana correspondiente
+        agregarProductoButton.setOnAction(e -> {
+            primaryStage.hide(); // Ocultar la ventana principal
+            VentanaAgregarProducto ventanaAgregarProducto = new VentanaAgregarProducto();
+            ventanaAgregarProducto.show(miGrafo, primaryStage, FILE_PATH); // Pasar los tres parámetros
+        });
+
         // HBox para la parte de búsqueda (campo de texto, ComboBox y botón)
         HBox hboxBusqueda = new HBox(10);
         hboxBusqueda.setAlignment(Pos.CENTER);
-        hboxBusqueda.getChildren().addAll(titulo, campoBusqueda, comboCategoria, buscarButton);
+        hboxBusqueda.getChildren().addAll(titulo, campoBusqueda, comboCategoria, buscarButton, agregarProductoButton);
         hboxBusqueda.setId("barraSuperior");
 
 
@@ -130,6 +144,7 @@ public class Main extends Application {
         comboCategoria.setOnAction(e -> {
             actualizarRecomendaciones(areaRecomendaciones, comboCategoria.getValue(), productos);
         });
+
 
         // Layout principal
         VBox layoutPrincipal = new VBox(20);

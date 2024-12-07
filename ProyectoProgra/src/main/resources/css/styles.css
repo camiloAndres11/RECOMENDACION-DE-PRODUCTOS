@@ -31,7 +31,7 @@
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
-    -fx-pref-width: 400px;
+    -fx-pref-width: 300px;
 }
 
 /* Estilo del botón */
@@ -46,12 +46,24 @@
 #botonBuscar:hover {
     -fx-background-color: #20042e; /* mas oscuro al pasar el mouse */
 }
+/* Estilo del botón */
+#agregarProductoButton {
+    -fx-font-size: 12px;
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+}
+
+#agregarProductoButton:hover {
+    -fx-background-color: #1c7a3b; /* mas oscuro al pasar el mouse */
+}
 
 /* Estilo para el FlowPane que contiene los productos */
 #areaRecomendaciones {
     -fx-vgap: 10px;  /* Espacio vertical entre las filas de productos */
     -fx-hgap: 10px;  /* Espacio horizontal entre los productos */
-    -fx-padding: 20px;  /* Padding alrededor del FlowPane */
+    -fx-padding: 20px;
     -fx-background-color: linear-gradient(to bottom, #dbeafe, #eff6ff); /* Azul super clarito */
 }
 
@@ -108,10 +120,61 @@
     -fx-font-weight: bold;
 }
 
+
 .window-background {
     -fx-background-color: linear-gradient(to bottom, #dbeafe, #eff6ff); /* Azul super clarito */
     -fx-background-size: cover;
 }
 
+#ventanaAgregarProducto {
+    -fx-background-color: linear-gradient(to bottom, #dbeafe, #eff6ff); /* Azul super clarito */
+    -fx-background-size: cover;
+    -fx-font-family: "Arial"; /* Aplicar fuente Arial a toda la interfaz */
+}
+
+
+#btnAgregar {
+    -fx-background-color: #2892bf; /* Azul */
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-font-weight: bold;
+}
+
+#btnAgregar:hover {
+    -fx-background-color: #1c6d92; /* Más oscuro cuando el mouse pasa */
+}
+
+#btnCancelar {
+    -fx-background-color: #28a745; /* Verde */
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-font-weight: bold;
+}
+
+#btnCancelar:hover {
+    -fx-background-color: #1c7a3b; /* Más oscuro cuando el mouse pasa */
+}
+
+/* Estilo de los campos de texto en la ventana de agregar producto */
+#ventanaAgregarProducto .text-field {
+    -fx-font-family: "Arial";
+    -fx-font-size: 12px;
+    -fx-pref-width: 250px;
+    -fx-padding: 10px;
+    -fx-background-color: white;
+    -fx-border-color: #0073e6;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Estilo de las etiquetas en la ventana de agregar producto */
+#ventanaAgregarProducto .label {
+    -fx-font-family: "Arial";
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
 
 
