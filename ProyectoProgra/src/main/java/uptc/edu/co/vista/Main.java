@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import uptc.edu.co.controlador.ControladorVista;
+import uptc.edu.co.controlador.Grafo;
 import uptc.edu.co.modelo.Nodo;
 
 public class Main extends Application {
@@ -23,6 +24,8 @@ public class Main extends Application {
 
 
     ControladorVista controladorVista = new ControladorVista();
+    Grafo miGrafo = new Grafo();
+
 
     public static void main(String[] args) {
         launch(args);
@@ -30,6 +33,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+
         this.primaryStage = primaryStage; // Asignar el Stage a la variable de instancia
         // Título
         Label titulo = new Label("ShopSation");
@@ -56,8 +61,15 @@ public class Main extends Application {
         hboxBusqueda.getChildren().addAll(titulo, campoBusqueda, comboCategoria, buscarButton);
         hboxBusqueda.setId("barraSuperior");
 
+
+
+
         List<Nodo> productos = new ArrayList<>();
         productos.addAll(controladorVista.listadoNodos());
+
+        //empezar a graficar el grafo grande en otro hilo porque si no se demora en cargar xd, por eso está comentado
+        System.out.println("Se está construyendo el gran grafo...");
+        //miGrafo.construirGrafo(productos);
 
         // FlowPane para mostrar los productos y tener la barra para bajar
         FlowPane areaRecomendaciones = new FlowPane();
