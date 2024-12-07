@@ -28,7 +28,7 @@ public class Main extends Application {
 
 
     // Suponiendo que el filepath es el siguiente
-    private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos10k.json";
+    private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos.json";
 
     public static void main(String[] args) {
         launch(args);
