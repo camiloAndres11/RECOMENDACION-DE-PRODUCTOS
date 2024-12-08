@@ -1,9 +1,6 @@
 package uptc.edu.co.persistencia;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -17,6 +14,7 @@ import uptc.edu.co.modelo.Nodo;
 
 
 public class Persistencia {
+    private static final Gson gson = new Gson();
 
     // Método para cargar los nodos desde el JSON
     public static List<Nodo> cargarNodos(String filePath) throws IOException {
@@ -47,4 +45,31 @@ public class Persistencia {
             gson.toJson(grafo, writer);
         }
     }
+
+    public static void agregarNodo(String filePath, Nodo nuevoNodo) throws IOException {
+        JsonObject jsonObject;
+        try (Reader reader = new FileReader(filePath)) {
+            jsonObject = gson.fromJson(reader, JsonObject.class);
+        } catch (FileNotFoundException e) {
+            jsonObject = new JsonObject();
+        }
+
+        JsonArray nodosArray = jsonObject.getAsJsonArray("nodos");
+        if (nodosArray == null) {
+            nodosArray = new JsonArray();
+            jsonObject.add("nodos", nodosArray);
+        }
+
+        // Convertir el nuevo nodo a JSON y añadirlo al array
+        nodosArray.add(gson.toJsonTree(nuevoNodo));
+
+        // Guardar el archivo actualizado
+        try (Writer writer = new FileWriter(filePath)) {
+            gson.toJson(jsonObject, writer);
+        }
+    }
+
+
+
 }
+

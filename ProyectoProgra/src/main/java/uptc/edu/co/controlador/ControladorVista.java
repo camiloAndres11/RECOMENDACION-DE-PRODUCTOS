@@ -9,7 +9,7 @@ import uptc.edu.co.persistencia.Persistencia;
 
 public class ControladorVista {
 
-    private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos.json";
+    private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos10k.json";
 
     Grafo grafo = new Grafo();
 
@@ -35,4 +35,6 @@ public class ControladorVista {
         }
         return new ArrayList<>();
     }
+
+
 }

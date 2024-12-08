@@ -4,10 +4,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import uptc.edu.co.controlador.ControladorVista;
 import uptc.edu.co.controlador.Grafo;
 import uptc.edu.co.modelo.Nodo;
 import uptc.edu.co.persistencia.Persistencia;
@@ -17,8 +19,7 @@ import java.util.List;
 
 public class VentanaAgregarProducto {
 
-    public void show(Grafo grafo, Stage primaryStage, String filePath) {
-
+    public void show(Grafo grafo, Stage primaryStage, String filePath, ControladorVista controladorVista, Main mainApp, FlowPane areaRecomendaciones, List<Nodo> productos) {
         Stage ventanaAgregarProducto = new Stage();
         ventanaAgregarProducto.setTitle("Añadir Nuevo Producto");
 
@@ -76,7 +77,10 @@ public class VentanaAgregarProducto {
                 grafo.agregarNodo(nuevoNodo);
 
                 // Guardar el grafo actualizado en el archivo JSON
-                Persistencia.guardarGrafo(filePath, grafo);
+                Persistencia.agregarNodo(filePath, nuevoNodo);
+
+                // Actualizar la vista principal
+                mainApp.actualizarProductosYVista(areaRecomendaciones, productos);
 
                 // Mostrar mensaje de éxito y cerrar la ventana
                 Alert alerta = new Alert(Alert.AlertType.INFORMATION);
@@ -84,6 +88,7 @@ public class VentanaAgregarProducto {
                 alerta.setHeaderText("El producto ha sido añadido exitosamente");
                 alerta.setContentText("Nombre: " + nombre);
                 alerta.showAndWait();
+                primaryStage.show(); // Mostrar la ventana principal nuevamente
                 ventanaAgregarProducto.close();
 
             } catch (NumberFormatException e) {

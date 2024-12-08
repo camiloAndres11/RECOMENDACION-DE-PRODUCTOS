@@ -1,16 +1,13 @@
 package uptc.edu.co.vista;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,6 +15,7 @@ import javafx.stage.Stage;
 import uptc.edu.co.controlador.ControladorVista;
 import uptc.edu.co.controlador.Grafo;
 import uptc.edu.co.modelo.Nodo;
+import uptc.edu.co.persistencia.Persistencia;
 
 public class Main extends Application {
     private Stage primaryStage;
@@ -26,9 +24,8 @@ public class Main extends Application {
     ControladorVista controladorVista = new ControladorVista();
     Grafo miGrafo = new Grafo();
 
-
     // Suponiendo que el filepath es el siguiente
-    private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos.json";
+    private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos10k.json";
 
     public static void main(String[] args) {
         launch(args);
@@ -37,8 +34,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-
         this.primaryStage = primaryStage; // Asignar el Stage a la variable de instancia
+
         // Título
         Label titulo = new Label("ShopSation");
         titulo.setId("titulo");  // ID para el CSS
@@ -62,12 +59,8 @@ public class Main extends Application {
         Button agregarProductoButton = new Button("Agregar Producto");
         agregarProductoButton.setId("agregarProductoButton");
 
-        // Configurar el botón de agregar producto para abrir la ventana correspondiente
-        agregarProductoButton.setOnAction(e -> {
-            primaryStage.hide(); // Ocultar la ventana principal
-            VentanaAgregarProducto ventanaAgregarProducto = new VentanaAgregarProducto();
-            ventanaAgregarProducto.show(miGrafo, primaryStage, FILE_PATH); // Pasar los tres parámetros
-        });
+
+
 
         // HBox para la parte de búsqueda (campo de texto, ComboBox y botón)
         HBox hboxBusqueda = new HBox(10);
@@ -145,6 +138,13 @@ public class Main extends Application {
             actualizarRecomendaciones(areaRecomendaciones, comboCategoria.getValue(), productos);
         });
 
+        // Configurar el botón de agregar producto para abrir la ventana correspondiente
+        agregarProductoButton.setOnAction(e -> {
+            primaryStage.hide(); // Ocultar la ventana principal
+            VentanaAgregarProducto ventanaAgregarProducto = new VentanaAgregarProducto();
+            ventanaAgregarProducto.show(miGrafo, primaryStage, FILE_PATH, controladorVista, this, areaRecomendaciones, productos); // Pasar los parámetros adicionales
+        });
+
 
         // Layout principal
         VBox layoutPrincipal = new VBox(20);
@@ -178,7 +178,7 @@ public class Main extends Application {
 
 // Si no se encontraron productos
         if (productosRecomendados.isEmpty()) {
-            areaRecomendaciones.getChildren().add(new Label("No se encontraron productos."));
+            areaRecomendaciones.getChildren().add(new Label(" "));
         } else {
             // Mostrar los productos recomendados
             for (Nodo producto : productosRecomendados) {
@@ -200,4 +200,13 @@ public class Main extends Application {
             }
         }
     }
+
+    public void actualizarProductosYVista(FlowPane areaRecomendaciones, List<Nodo> productos) {
+        productos.clear(); productos.addAll(controladorVista.listadoNodos());
+        actualizarRecomendaciones(areaRecomendaciones, "Todo", productos);
+    }
+
+
+
+
 }
