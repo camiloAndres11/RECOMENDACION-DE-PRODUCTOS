@@ -17,6 +17,8 @@ import uptc.edu.co.controlador.Grafo;
 import uptc.edu.co.modelo.Nodo;
 import uptc.edu.co.persistencia.Persistencia;
 
+import static uptc.edu.co.controlador.ControladorVista.*;
+
 public class Main extends Application {
     private Stage primaryStage;
 
@@ -25,7 +27,7 @@ public class Main extends Application {
     Grafo miGrafo = new Grafo();
 
     // Suponiendo que el filepath es el siguiente
-    private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos10k.json";
+    //private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos10k.json";
 
     public static void main(String[] args) {
         launch(args);
@@ -142,7 +144,7 @@ public class Main extends Application {
         agregarProductoButton.setOnAction(e -> {
             primaryStage.hide(); // Ocultar la ventana principal
             VentanaAgregarProducto ventanaAgregarProducto = new VentanaAgregarProducto();
-            ventanaAgregarProducto.show(miGrafo, primaryStage, FILE_PATH, controladorVista, this, areaRecomendaciones, productos); // Pasar los parámetros adicionales
+            ventanaAgregarProducto.show(miGrafo, primaryStage, controladorVista.returnPath(), controladorVista, this, areaRecomendaciones, productos); // Pasar los parámetros adicionales
         });
 
 

@@ -31,7 +31,7 @@ public class VentanaAgregarProducto {
         Label lblNombre = new Label("Nombre del producto:");
         TextField campoNombre = new TextField();
 
-        Label lblNumeroCompras = new Label("Número de compras:");
+        Label lblNumeroCompras = new Label("Número de compras (debe ser positivo):");
         TextField campoNumeroCompras = new TextField();
 
         Label lblDescripcion = new Label("Descripción del producto:");
@@ -65,12 +65,16 @@ public class VentanaAgregarProducto {
                 // Validar y recoger los datos ingresados
                 String nombre = campoNombre.getText();
                 int numeroCompras = Integer.parseInt(campoNumeroCompras.getText());
+                if (numeroCompras < 0) {
+                    throw new IllegalArgumentException("El número de compras no puede ser negativo.");
+                }
                 String descripcion = campoDescripcion.getText();
                 double precio = Double.parseDouble(campoPrecio.getText());
                 int id = Integer.parseInt(campoId.getText());
                 List<String> categorias = List.of(campoCategorias.getText().split("\\s*,\\s*")); // Limpia espacios alrededor de las comas
 
                 // Crear el nuevo nodo
+
                 Nodo nuevoNodo = new Nodo(nombre, numeroCompras, descripcion, categorias, id, precio);
 
                 // Agregar el nodo al grafo
@@ -98,7 +102,15 @@ public class VentanaAgregarProducto {
                 alerta.setHeaderText("Datos inválidos");
                 alerta.setContentText("Asegúrate de ingresar valores numéricos correctos en Número de Compras, Precio e ID.");
                 alerta.showAndWait();
-            } catch (IOException e) {
+            }
+            catch (IllegalArgumentException e){
+                // Manejo de excepción para número de compras negativo
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setTitle("Error");
+                alerta.setHeaderText("Datos inválidos");
+                alerta.setContentText(e.getMessage());
+                alerta.showAndWait();
+            }catch (IOException e) {
                 // Mostrar alerta en caso de error al guardar el grafo
                 Alert alerta = new Alert(Alert.AlertType.ERROR);
                 alerta.setTitle("Error");

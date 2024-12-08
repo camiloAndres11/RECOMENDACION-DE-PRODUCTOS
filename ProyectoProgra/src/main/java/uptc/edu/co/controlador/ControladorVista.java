@@ -9,7 +9,7 @@ import uptc.edu.co.persistencia.Persistencia;
 
 public class ControladorVista {
 
-    private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos10k.json";
+    private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos40k.json";
 
     Grafo grafo = new Grafo();
 
@@ -34,6 +34,9 @@ public class ControladorVista {
             return grafo.recomendacionesNodos(nombreProducto); // Modificado para devolver una lista de Nodos
         }
         return new ArrayList<>();
+    }
+    public String returnPath (){
+        return FILE_PATH;
     }
 
 
