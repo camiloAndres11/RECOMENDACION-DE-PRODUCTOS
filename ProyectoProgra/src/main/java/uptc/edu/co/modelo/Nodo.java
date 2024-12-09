@@ -22,6 +22,37 @@ public class Nodo{
         this.id = id;
         this.precio = precio;
     }
+    public Nodo(){
+
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setNumeroCompras(int numeroCompras) {
+        this.numeroCompras = numeroCompras;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCategoria(List<String> categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setAdyacencias(List<Nodo> adyacencias) {
+        this.adyacencias = adyacencias;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
 
     public String getNombre(){
         return nombre;
@@ -77,7 +108,4 @@ public class Nodo{
     public double getPrecio() {
         return precio;
     }
-
-    
-
 }
