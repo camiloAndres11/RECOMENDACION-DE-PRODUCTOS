@@ -1,6 +1,11 @@
 package uptc.edu.co.persistencia;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -85,6 +90,33 @@ public class Persistencia {
             gson.toJson(jsonObject, writer);
         }
     }
+
+    public void actualizarNodoEnArchivoJson(String filePath, int idBuscado, Nodo nuevoNodo) throws IOException {
+        // Leer el archivo JSON existente y cargar la lista de nodos
+        List<Nodo> nodos =  cargarNodos(filePath);
+    
+        // Buscar el nodo por su ID y actualizarlo
+        boolean nodoEncontrado = false;
+        for (int i = 0; i < nodos.size(); i++) {
+            if (nodos.get(i).getId() == idBuscado) {
+                nodos.set(i, nuevoNodo);
+                nodoEncontrado = true;
+                break;
+            }
+        }
+    
+        // Verificar si el nodo fue encontrado
+        if (!nodoEncontrado) {
+            
+            return;
+        }
+    
+        // Sobrescribir el archivo con la lista actualizada
+        sobrescribirArchivoJson(filePath, nodos);
+    }
+
+    
+    
 
 
 

@@ -1,15 +1,21 @@
 package uptc.edu.co.vista;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -17,10 +23,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import uptc.edu.co.controlador.ControladorVista;
 import uptc.edu.co.modelo.Nodo;
-import uptc.edu.co.persistencia.Persistencia;
-
-import java.io.IOException;
-import java.util.List;
 
 public class DetallesDeProducto {
 
@@ -77,7 +79,6 @@ public class DetallesDeProducto {
             Button verProductoButton = new Button("Ver Producto");
             verProductoButton.setOnAction(e -> {
                 Nodo productoSeleccionado = param.getValue();
-                System.out.println("Producto seleccionado: " + productoSeleccionado.getNombre() + productoSeleccionado.getId());
                 stage.close(); // Cerrar la ventana actual
                 show(productoSeleccionado.getNombre(), String.valueOf(productoSeleccionado.getPrecio()), productoSeleccionado.getDescripcion(), primaryStage, controladorVista);
             });
@@ -101,27 +102,68 @@ public class DetallesDeProducto {
         // Botón de comprar
         Button comprarButton = new Button("Comprar ahora");
         comprarButton.setId("botonComprar");
-        System.out.println("Producto a comprar: " + this.nodoo.getId());
-        System.out.println("Simulando método de persistencia...");
+        
 
 
 
         comprarButton.setOnAction(e -> {
-            try {
-                controladorVista.editarNodoCompra(this.nodoo);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-            /*
-            try {
-                String filePath = "src/main/java/uptc/edu/co/persistencia/Productos40k.json";
-                Persistencia.actualizarNumeroDeCompras(filePath, this.nodoo.getId());
-            } catch (IOException ex) {
-                System.err.println("Error al actualizar el número de compras: " + ex.getMessage());
-            }
+    if (this.nodoo != null) {
+        // Crear un cuadro de diálogo para pedir las unidades
+        TextInputDialog dialog = new TextInputDialog("1");
+        dialog.setTitle("Compra de Producto");
+        dialog.setHeaderText("Comprar Producto");
+        dialog.setContentText("Por favor, ingresa la cantidad de unidades a comprar:");
 
-             */
+        // Obtener el resultado del diálogo
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(cantidadStr -> {
+            try {
+                int cantidad = Integer.parseInt(cantidadStr);
+                if (cantidad > 0) {
+                    // Actualizar el nodo con el número de compras
+                    for (int i = 0; i < cantidad; i++) {
+                        controladorVista.editarNodoCompra(this.nodoo);
+                    }
+
+                    // Actualizar la etiqueta de número de compras
+                    comprasLabel.setText("Número de Compras: " + this.nodoo.getNumeroCompras());
+
+                    // Mostrar mensaje de confirmación
+                    Alert confirmacion = new Alert(Alert.AlertType.INFORMATION);
+                    confirmacion.setTitle("Compra Exitosa");
+                    confirmacion.setHeaderText(null);
+                    confirmacion.setContentText("¡Compra realizada con éxito!\nSe compraron " + cantidad + " unidades.");
+                    confirmacion.showAndWait();
+                } else {
+                    // Manejar la entrada de cantidad no válida
+                    Alert error = new Alert(Alert.AlertType.ERROR);
+                    error.setTitle("Error en la cantidad");
+                    error.setHeaderText(null);
+                    error.setContentText("Por favor, ingresa un número positivo de unidades.");
+                    error.showAndWait();
+                }
+            } catch (NumberFormatException ex) {
+                // Manejar la entrada no numérica
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setTitle("Error en la cantidad");
+                error.setHeaderText(null);
+                error.setContentText("Por favor, ingresa un número válido de unidades.");
+                error.showAndWait();
+            } catch (IOException ex) {
+                // Manejar errores de E/S
+              
+            }
         });
+    } else {
+        // Manejar el caso en el que el nodo sea nulo
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        error.setTitle("Error");
+        error.setHeaderText(null);
+        error.setContentText("No se puede comprar: el nodo del producto es nulo.");
+        error.showAndWait();
+    }
+});
+
 
 
 

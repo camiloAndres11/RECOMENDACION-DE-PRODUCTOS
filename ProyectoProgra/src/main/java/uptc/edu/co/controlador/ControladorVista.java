@@ -1,7 +1,6 @@
 package uptc.edu.co.controlador;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,7 @@ import uptc.edu.co.persistencia.Persistencia;
 public class ControladorVista {
 
 
-    private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos40k.json";
+    private static final String FILE_PATH = "ProyectoProgra\\src\\main\\java\\uptc\\edu\\co\\persistencia\\Productos10k.json";
 
     Persistencia persistencia = new Persistencia();
     Grafo grafo = new Grafo();
@@ -22,7 +21,7 @@ public class ControladorVista {
             nodos = Persistencia.cargarNodos(FILE_PATH);
             // Construir el grafo a partir de los nodos
             grafo.setNodos(nodos);
-            System.out.println("Nodos creados: " + nodos.size());
+          
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -32,21 +31,18 @@ public class ControladorVista {
     public void editarNodoCompra(Nodo nodo) throws IOException {
         for(Nodo n: nodos){
             if(nodo.getId() == n.getId()){
-                System.out.println("Nodo a editar: " + n.getNombre()+ " con " + n.getNumeroCompras());
+                
                 n.setNumeroCompras(n.getNumeroCompras()+1);
-                System.out.println("Nodo editado: " + n.getNombre()+ " con " + n.getNumeroCompras());
-                persistencia.sobrescribirArchivoJson(FILE_PATH, nodos);
-                System.out.println("Archivo editado");
+               
+                persistencia.actualizarNodoEnArchivoJson(FILE_PATH, nodo.getId(), nodo);
+               
             }
         }
     }
 
-
     public Nodo buscarNodoPorNombre(String nombre){
         return grafo.buscarNodoPorNombre(nombre);
     }
-
-
 
     public List<Nodo> recomendaciones(Nodo nodoR) {
         if (nodoR != null) {
@@ -59,6 +55,5 @@ public class ControladorVista {
     public String returnPath (){
         return FILE_PATH;
     }
-
 
 }

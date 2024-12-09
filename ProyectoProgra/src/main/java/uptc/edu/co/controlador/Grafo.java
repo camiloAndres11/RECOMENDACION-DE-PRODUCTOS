@@ -1,9 +1,9 @@
 package uptc.edu.co.controlador;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Comparator;
 
 import uptc.edu.co.modelo.Arista;
 import uptc.edu.co.modelo.Nodo;
@@ -77,17 +77,7 @@ public void construirGrafo(List<Nodo> nodos) {
         }
     }
 }
-    
 
-    // Método para imprimir el grafo
-    public void imprimirGrafo() {
-        adyacencias.forEach((nodo, listaAristas) -> {
-            System.out.println("Nodo: " + nodo.getNombre());
-            listaAristas.forEach(arista -> {
-                System.out.println("arista -> " + arista.getDestino().getNombre() + " (Peso: " + arista.getPeso() + ")" );
-            });
-        });
-    }
 
     // Método para obtener los nodos del grafo
     public List<Nodo> getNodos() {
@@ -101,10 +91,10 @@ public void construirGrafo(List<Nodo> nodos) {
 
     // Método para buscar un nodo por su nombre
     public Nodo buscarNodoPorNombre(String nombre) {
-        System.out.println("Producto nodo para buscar recomendaciones: "+ nombre);
+        
         for (Nodo nodo : nodos) {
             if (nodo.getNombre().equals(nombre)) {
-                System.out.println("Id del nodo encontrado por nombre: " + nodo.getId());
+               
                 return nodo;
             }
         }
@@ -137,7 +127,7 @@ public void construirGrafo(List<Nodo> nodos) {
 public List<Nodo> recomendacionesNodos(Nodo nodoR) {
     List<Nodo> recomendados = new ArrayList<>();
     // Nodo nodo = buscarNodoPorNombre(nombre);
-    System.out.println("Nodo del producto: " + nodoR.getNombre() + " id del producto: " + nodoR.getId());
+   
     //Nodo nodo1 = buscarNodoPorId(nodo.getId());
     if (nodoR != null) {
         // Obtener las aristas del nodo y ordenarlas por peso ascendente
@@ -160,7 +150,7 @@ public List<Nodo> recomendacionesNodos(Nodo nodoR) {
 public List<String> recomendaciones(String nombre) {
     List<String> recomendados = new ArrayList<>();
     Nodo nodo = buscarNodoPorNombre(nombre);
-    System.out.println("Node del producto: " + nodo.getNombre()+"id del producto: "+ nodo.getId());
+    
     Nodo  nodo1 = buscarNodoPorId(nodo.getId());
     if (nodo1 != null) {
         // Obtener las aristas del nodo y ordenarlas por peso ascendente

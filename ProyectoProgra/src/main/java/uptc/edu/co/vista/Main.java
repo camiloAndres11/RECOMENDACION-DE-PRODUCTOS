@@ -1,13 +1,16 @@
 package uptc.edu.co.vista;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -15,9 +18,6 @@ import javafx.stage.Stage;
 import uptc.edu.co.controlador.ControladorVista;
 import uptc.edu.co.controlador.Grafo;
 import uptc.edu.co.modelo.Nodo;
-import uptc.edu.co.persistencia.Persistencia;
-
-import static uptc.edu.co.controlador.ControladorVista.*;
 
 public class Main extends Application {
     private Stage primaryStage;
@@ -26,8 +26,6 @@ public class Main extends Application {
     ControladorVista controladorVista = new ControladorVista();
     Grafo miGrafo = new Grafo();
 
-    // Suponiendo que el filepath es el siguiente
-    //private static final String FILE_PATH = "src/main/java/uptc/edu/co/persistencia/Productos10k.json";
 
     public static void main(String[] args) {
         launch(args);
@@ -50,7 +48,7 @@ public class Main extends Application {
 
         // ComboBox Categorías
         ComboBox<String> comboCategoria = new ComboBox<>();
-        comboCategoria.getItems().addAll("Todo", "Ropa", "Alimentos", "Electrodomestico", "Juguetes");
+        comboCategoria.getItems().addAll("Todo", "Ropa", "Alimentos", "Electrodomestico");
         comboCategoria.setValue("Todo");
 
         // Botón para Buscar
@@ -61,9 +59,6 @@ public class Main extends Application {
         Button agregarProductoButton = new Button("Agregar Producto");
         agregarProductoButton.setId("agregarProductoButton");
 
-
-
-
         // HBox para la parte de búsqueda (campo de texto, ComboBox y botón)
         HBox hboxBusqueda = new HBox(10);
         hboxBusqueda.setAlignment(Pos.CENTER);
@@ -71,13 +66,11 @@ public class Main extends Application {
         hboxBusqueda.setId("barraSuperior");
 
 
-
-
         List<Nodo> productos = new ArrayList<>();
         productos.addAll(controladorVista.listadoNodos());
 
         //empezar a graficar el grafo grande en otro hilo porque si no se demora en cargar xd, por eso está comentado
-        System.out.println("Se esta construyendo el gran grafo...");
+       
         //miGrafo.construirGrafo(productos);
 
         // FlowPane para mostrar los productos y tener la barra para bajar
@@ -135,10 +128,14 @@ public class Main extends Application {
             }
         });
 
+    
         // Actualizar recomendaciones según categoría
         comboCategoria.setOnAction(e -> {
-            actualizarRecomendaciones(areaRecomendaciones, comboCategoria.getValue(), productos);
+            String busqueda = campoBusqueda.getText().toLowerCase();
+            String categoriaSeleccionada = comboCategoria.getValue();
+            filtrarYActualizarProductos(areaRecomendaciones, busqueda, categoriaSeleccionada, productos);
         });
+        
 
         // Configurar el botón de agregar producto para abrir la ventana correspondiente
         agregarProductoButton.setOnAction(e -> {
@@ -185,7 +182,7 @@ public class Main extends Application {
             // Mostrar los productos recomendados
             for (Nodo producto : productosRecomendados) {
                 // Crear un Label para mostrar el nombre del producto
-                Label productoCard = new Label(producto.getNombre() + " - " + producto.getPrecio());
+                Label productoCard = new Label(producto.getNombre() + "\n $" + producto.getPrecio());
                 productoCard.getStyleClass().add("producto-card");  // Para el CSS
 
                 // Agregar evento al hacer click en el card
@@ -207,6 +204,41 @@ public class Main extends Application {
         productos.clear(); productos.addAll(controladorVista.listadoNodos());
         actualizarRecomendaciones(areaRecomendaciones, "Todo", productos);
     }
+
+    private void filtrarYActualizarProductos(FlowPane areaRecomendaciones, String busqueda, String categoriaSeleccionada, List<Nodo> productos) {
+        areaRecomendaciones.getChildren().clear();
+    
+        List<Nodo> productosFiltrados = new ArrayList<>();
+    
+        // Filtrar productos por categoría y texto de búsqueda
+        for (Nodo nodo : productos) {
+            boolean perteneceACategoria = categoriaSeleccionada.equals("Todo") || nodo.getCategorias().contains(categoriaSeleccionada);
+            boolean coincideConBusqueda = nodo.getNombre().toLowerCase().contains(busqueda);
+    
+            if (perteneceACategoria && coincideConBusqueda) {
+                productosFiltrados.add(nodo);
+            }
+        }
+    
+        // Mostrar los productos filtrados o un mensaje si no se encontraron
+        if (productosFiltrados.isEmpty()) {
+            areaRecomendaciones.getChildren().add(new Label("No se encontraron productos."));
+        } else {
+            for (Nodo nodo : productosFiltrados) {
+                Label productoCard = new Label(nodo.getNombre() + "\n $" + nodo.getPrecio());
+                productoCard.getStyleClass().add("producto-card");
+    
+                productoCard.setOnMouseClicked(event -> {
+                    DetallesDeProducto ventanaDetalles = new DetallesDeProducto();
+                    primaryStage.hide();
+                    ventanaDetalles.show(nodo.getNombre(), String.format("$%.2f", nodo.getPrecio()), nodo.getDescripcion(), primaryStage, controladorVista);
+                });
+    
+                areaRecomendaciones.getChildren().add(productoCard);
+            }
+        }
+    }
+    
 
 
 
