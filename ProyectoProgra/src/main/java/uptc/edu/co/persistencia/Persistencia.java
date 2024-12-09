@@ -69,6 +69,23 @@ public class Persistencia {
         }
     }
 
+    public static void sobrescribirArchivoJson(String filePath, List<Nodo> nodos) throws IOException {
+        // Crear un objeto JSON raíz
+        JsonObject jsonObject = new JsonObject();
+
+        // Convertir la lista de nodos a un array JSON
+        Type tipoListaNodos = new TypeToken<List<Nodo>>() {}.getType();
+        JsonArray nodosArray = gson.toJsonTree(nodos, tipoListaNodos).getAsJsonArray();
+
+        // Añadir el array de nodos al objeto JSON raíz
+        jsonObject.add("nodos", nodosArray);
+
+        // Escribir el objeto JSON en el archivo
+        try (FileWriter writer = new FileWriter(filePath)) {
+            gson.toJson(jsonObject, writer);
+        }
+    }
+
 
 
 }

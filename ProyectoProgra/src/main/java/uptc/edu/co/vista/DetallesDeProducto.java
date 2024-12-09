@@ -17,10 +17,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import uptc.edu.co.controlador.ControladorVista;
 import uptc.edu.co.modelo.Nodo;
+import uptc.edu.co.persistencia.Persistencia;
 
+import java.io.IOException;
 import java.util.List;
 
 public class DetallesDeProducto {
+
+    Nodo nodoo = null; // Inicializa nodoo como null
 
     public void show(String nombreProducto, String precio, String descripcion, Stage primaryStage, ControladorVista controladorVista) {
 
@@ -38,14 +42,22 @@ public class DetallesDeProducto {
         Label descripcionLabel = new Label("Descripción: " + descripcion);
         descripcionLabel.setId("descripcionProducto");
 
+        // Obtener nodo del producto
+        nodoo = controladorVista.buscarNodoPorNombre(nombreProducto);
+        Label comprasLabel = new Label("Número de Compras: " + (nodoo != null ? nodoo.getNumeroCompras() : "N/A"));
+        comprasLabel.setId("numeroComprasProducto");
+
+        Label idLabel = new Label("ID del Producto: " + (nodoo != null ? nodoo.getId() : "N/A"));
+        idLabel.setId("idProducto");
+
         // Layout para la información en la parte izquierda
         VBox izquierdaLayout = new VBox(10);
-        izquierdaLayout.getChildren().addAll(nombreLabel, precioLabel, descripcionLabel);
+        izquierdaLayout.getChildren().addAll(nombreLabel, precioLabel, descripcionLabel, comprasLabel, idLabel);
         izquierdaLayout.setPadding(new Insets(10));
         izquierdaLayout.setAlignment(Pos.CENTER_LEFT);
 
         // Obtener recomendaciones
-        List<Nodo> recomendaciones = controladorVista.recomendaciones(nombreProducto);
+        List<Nodo> recomendaciones = controladorVista.recomendaciones(this.nodoo);
         ObservableList<Nodo> datosRecomendaciones = FXCollections.observableArrayList(recomendaciones);
 
         // Crear la tabla de recomendaciones
@@ -65,6 +77,7 @@ public class DetallesDeProducto {
             Button verProductoButton = new Button("Ver Producto");
             verProductoButton.setOnAction(e -> {
                 Nodo productoSeleccionado = param.getValue();
+                System.out.println("Producto seleccionado: " + productoSeleccionado.getNombre() + productoSeleccionado.getId());
                 stage.close(); // Cerrar la ventana actual
                 show(productoSeleccionado.getNombre(), String.valueOf(productoSeleccionado.getPrecio()), productoSeleccionado.getDescripcion(), primaryStage, controladorVista);
             });
@@ -88,10 +101,29 @@ public class DetallesDeProducto {
         // Botón de comprar
         Button comprarButton = new Button("Comprar ahora");
         comprarButton.setId("botonComprar");
+        System.out.println("Producto a comprar: " + this.nodoo.getId());
+        System.out.println("Simulando método de persistencia...");
+
+
+
         comprarButton.setOnAction(e -> {
-            System.out.println("Producto comprado: " + nombreProducto);
-            // No cerrar la ventana por ahora
+            try {
+                controladorVista.editarNodoCompra(this.nodoo);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            /*
+            try {
+                String filePath = "src/main/java/uptc/edu/co/persistencia/Productos40k.json";
+                Persistencia.actualizarNumeroDeCompras(filePath, this.nodoo.getId());
+            } catch (IOException ex) {
+                System.err.println("Error al actualizar el número de compras: " + ex.getMessage());
+            }
+
+             */
         });
+
+
 
         // Footer para los botones "Volver" y "Comprar ahora"
         HBox footer = new HBox(10);

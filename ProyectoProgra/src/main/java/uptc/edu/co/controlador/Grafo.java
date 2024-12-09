@@ -101,7 +101,7 @@ public void construirGrafo(List<Nodo> nodos) {
 
     // Método para buscar un nodo por su nombre
     public Nodo buscarNodoPorNombre(String nombre) {
-        System.out.println("Producto nodo para buscar recomendacioens: "+ nombre);
+        System.out.println("Producto nodo para buscar recomendaciones: "+ nombre);
         for (Nodo nodo : nodos) {
             if (nodo.getNombre().equals(nombre)) {
                 System.out.println("Id del nodo encontrado por nombre: " + nodo.getId());
@@ -134,14 +134,14 @@ public void construirGrafo(List<Nodo> nodos) {
     }
 
  */
-public List<Nodo> recomendacionesNodos(String nombre) {
+public List<Nodo> recomendacionesNodos(Nodo nodoR) {
     List<Nodo> recomendados = new ArrayList<>();
-    Nodo nodo = buscarNodoPorNombre(nombre);
-    System.out.println("Nodo del producto: " + nodo.getNombre() + " id del producto: " + nodo.getId());
-    Nodo nodo1 = buscarNodoPorId(nodo.getId());
-    if (nodo1 != null) {
+    // Nodo nodo = buscarNodoPorNombre(nombre);
+    System.out.println("Nodo del producto: " + nodoR.getNombre() + " id del producto: " + nodoR.getId());
+    //Nodo nodo1 = buscarNodoPorId(nodo.getId());
+    if (nodoR != null) {
         // Obtener las aristas del nodo y ordenarlas por peso ascendente
-        List<Arista> aristas = new ArrayList<>(adyacencias.get(nodo1));
+        List<Arista> aristas = new ArrayList<>(adyacencias.get(nodoR));
         aristas.sort(Comparator.comparingInt(Arista::getPeso));
 
         // Agregar los nodos destino a la lista de recomendados
@@ -221,6 +221,7 @@ public List<String> recomendaciones(String nombre) {
         }
     }
     //Graficar el grafo cada que se construyó y guardar un json con ese grafo
+
 }
 
     public void setNodos(List<Nodo> nodos) {

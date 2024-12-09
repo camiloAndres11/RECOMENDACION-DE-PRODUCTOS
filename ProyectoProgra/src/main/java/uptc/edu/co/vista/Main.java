@@ -77,7 +77,7 @@ public class Main extends Application {
         productos.addAll(controladorVista.listadoNodos());
 
         //empezar a graficar el grafo grande en otro hilo porque si no se demora en cargar xd, por eso está comentado
-        System.out.println("Se está construyendo el gran grafo...");
+        System.out.println("Se esta construyendo el gran grafo...");
         //miGrafo.construirGrafo(productos);
 
         // FlowPane para mostrar los productos y tener la barra para bajar
